@@ -2,13 +2,15 @@ import { DataTypes } from 'sequelize';
 import {
   BeforeCreate,
   Column,
+  HasMany,
   IsUUID,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import { Product } from '../product/product.schema';
 
-@Table({ tableName: 'productType', paranoid: true })
+@Table({ tableName: 'product_type', paranoid: true })
 export class ProductType extends Model<ProductType> {
   @PrimaryKey
   @Column({
@@ -30,4 +32,7 @@ export class ProductType extends Model<ProductType> {
     allowNull: false,
   })
   price: number;
+
+  @HasMany(() => Product)
+  products: Product[];
 }

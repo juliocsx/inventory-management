@@ -3,6 +3,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import * as dotenv from 'dotenv';
 import { UserModule } from './modules/user/user.module';
 import { ProductTypeModule } from './modules/productType/productType.module';
+import { ProductModule } from './modules/product/product.module';
 
 dotenv.config();
 
@@ -17,9 +18,11 @@ dotenv.config();
       database: process.env.DATABASE_NAME,
       autoLoadModels: true,
       synchronize: true,
+      logging: false,
     }),
     UserModule,
-    ProductTypeModule
+    ProductTypeModule,
+    ProductModule,
   ],
   controllers: [],
   providers: [],

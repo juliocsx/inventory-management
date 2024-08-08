@@ -95,7 +95,6 @@ export class UserService {
           );
         }
       }
-      console.log(data);
 
       await this.userModel.update(
         { ...data },
