@@ -67,12 +67,10 @@ export class ProductService {
         where: productWhereStatement,
       });
 
-      if (products.length === 0) {
-        throw new HttpException('No product found', HttpStatus.NOT_FOUND);
-      }
+      const message: string = products.length === 0 ? 'No products found' : 'Products found successfully';
 
       return {
-        message: 'Product found successfully',
+        message: message,
         data: products,
       };
     } catch (error) {

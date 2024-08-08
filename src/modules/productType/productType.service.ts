@@ -66,12 +66,10 @@ export class ProductTypeService {
         where: productTypeWhereStatement,
       });
 
-      if (productTypes.length === 0) {
-        throw new HttpException('No product types found', HttpStatus.NOT_FOUND);
-      }
+      const message: string = productTypes.length === 0 ? 'No product types found' : 'Product types found successfully';
 
       return {
-        message: 'Product types found successfully',
+        message: message,
         data: productTypes,
       };
     } catch (error) {

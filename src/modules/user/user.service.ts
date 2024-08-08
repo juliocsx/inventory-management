@@ -59,14 +59,12 @@ export class UserService {
         userWhereStatement.id = id;
       }
 
-      const users = await this.userModel.findAll({ where: userWhereStatement });
+      const users: User[] = await this.userModel.findAll({ where: userWhereStatement });
 
-      if (users.length === 0) {
-        throw new HttpException('No users found', HttpStatus.NOT_FOUND);
-      }
+      const message: string = users.length === 0 ? 'No users found' : 'Users found successfully';
 
       return {
-        message: 'Users found successfully',
+        message: message,
         data: users,
       };
     } catch (error) {
