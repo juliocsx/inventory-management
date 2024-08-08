@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import * as dotenv from 'dotenv';
 import { UserModule } from './modules/user/user.module';
-import { User } from './modules/user/user.schema';
+import { ProductTypeModule } from './modules/productType/productType.module';
 
 dotenv.config();
 
@@ -17,11 +17,9 @@ dotenv.config();
       database: process.env.DATABASE_NAME,
       autoLoadModels: true,
       synchronize: true,
-      models: [
-        User
-      ],
     }),
     UserModule,
+    ProductTypeModule
   ],
   controllers: [],
   providers: [],
