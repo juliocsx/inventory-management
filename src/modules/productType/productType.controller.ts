@@ -12,13 +12,16 @@ import {
     Query,
     Req,
     Res,
+    UseGuards,
   } from '@nestjs/common';
   import { Request, Response } from 'express';
   import { CreateProductTypeDto } from './dtos/create-productType.dto';
   import { ProductTypeService } from './productType.service';
   import { ProductTypeQuery } from './productType.types';
   import { UpdateProductTypeDto } from './dtos/update-productType.dto';
+import { AuthGuard } from 'src/auth/auth.guard';
   
+  @UseGuards(AuthGuard)
   @Controller('product-types')
   export class ProductTypeController {
     constructor(private readonly productTypeService: ProductTypeService) {}

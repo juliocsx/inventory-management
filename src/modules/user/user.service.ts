@@ -6,6 +6,7 @@ import { UserQuery } from './user.types';
 import { Op } from 'sequelize';
 import { ResponseDto } from 'src/shared/types/response.dto';
 import { UpdateUserDto } from './dtos/update-user.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -22,10 +23,12 @@ export class UserService {
         );
       }
 
+      const hashedPassword: string = await bcrypt.hash(data.password, 10);
+
       const user = await this.userModel.create({
         name: data.name,
         email: data.email,
-        password: data.password,
+        password: hashedPassword,
       });
 
       return {
@@ -59,14 +62,52 @@ export class UserService {
         userWhereStatement.id = id;
       }
 
-      const users: User[] = await this.userModel.findAll({ where: userWhereStatement });
+      const users: User[] = await this.userModel.findAll({
+        where: userWhereStatement,
+        attributes: {
+          exclude: ['password', 'deletedAt'],
+        },
+      });
 
-      const message: string = users.length === 0 ? 'No users found' : 'Users found successfully';
+      const message: string =
+        users.length === 0 ? 'No users found' : 'Users found successfully';
 
       return {
         message: message,
         data: users,
       };
+    } catch (error) {
+      throw new HttpException(error.response, error.status);
+    }
+  }
+
+  public async findOne(query: UserQuery): Promise<User> {
+    try {
+      const { name, email, id } = query;
+
+      let userWhereStatement: any = {};
+
+      if (name) {
+        userWhereStatement.name = {
+          [Op.like]: `%${name}%`,
+        };
+      }
+
+      if (email) {
+        userWhereStatement.email = {
+          [Op.like]: `%${email}%`,
+        };
+      }
+
+      if (id) {
+        userWhereStatement.id = id;
+      }
+
+      const user: User = await this.userModel.findOne({
+        where: userWhereStatement,
+      });
+
+      return user;
     } catch (error) {
       throw new HttpException(error.response, error.status);
     }
@@ -94,12 +135,16 @@ export class UserService {
         }
       }
 
+      if (data.password) {
+        data.password = await bcrypt.hash(data.password, 10);
+      }
+
       await this.userModel.update(
         { ...data },
         { where: { id }, returning: true },
       );
 
-      const userUpdated = await this.userModel.findByPk(id);
+      const userUpdated: User = await this.userModel.findByPk(id);
 
       return {
         message: 'User updated successfully',

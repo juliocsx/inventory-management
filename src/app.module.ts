@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import { UserModule } from './modules/user/user.module';
 import { ProductTypeModule } from './modules/productType/productType.module';
 import { ProductModule } from './modules/product/product.module';
+import { AuthModule } from './auth/auth.module';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ dotenv.config();
     UserModule,
     ProductTypeModule,
     ProductModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],
