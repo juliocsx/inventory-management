@@ -1,14 +1,6 @@
 <ul>
     <li *ngFor="let type of productTypes">
-        <div (click)="selectProductType(type.id)">
-            <span>{{ selectedProductTypeId === type.id ? '▼' : '▶' }}</span>
-            {{ type.name }} - {{ type.price }}
-        </div>
-
-        <ul *ngIf="selectedProductTypeId === type.id">
-            <li *ngFor="let product of getFilteredProducts()">
-                Quantity: {{ product.quantity }} -  Expiry: {{ product.expiryDate }}
-            </li>
-        </ul>
+      {{ type.describe }} - R$ {{ type.price }}
     </li>
-</ul>
+  </ul>
+  
