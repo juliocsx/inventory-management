@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: dbmysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 'admin'
+      MYSQL_DATABASE: 'im_prd'
+      MYSQL_USER: 'master'
+      MYSQL_PASSWORD: 'master@123'
+    ports:
+      - "3306:3306"
+
+  frontend:
+    build: ./front
+    environment:
+      - API_URL=http://localhost:3000/dev/api
+    ports:
+      - "4200:4200"
+    depends_on:
+      - db
+
+  backend:
+    build: ./back
+    environment:
+      - DATABASE_HOST=dbmysql
+      - DATABASE_PORT=3306
+      - DATABASE_USERNAME=master
+      - DATABASE_PASSWORD=master@123
+      - DATABASE_NAME=im_prd
+      - APP_PORT=3000
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db

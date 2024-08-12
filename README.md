@@ -1,73 +1,55 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Gerenciamento de inventário
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Uma aplicação para gerenciamento de inventário. No
 
-## Description
+## 🚀 Começando
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Primeiro, obtenha uma cópia do projeto através do comando **git clone**. Depois disso, copie e cole o URL do projeto e clique enter.
 
-## Installation
-
-```bash
-$ npm install
+```
+$ git clone https://github.com/juliocsx/inventory-management.git
 ```
 
-## Running the app
+Agora abra o terminal de sua escolha no diretório onde o repositório foi baixado. Use o comando abaixo no diretório do projeto
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```
+docker-compose up -d
 ```
 
-## Test
+Acesse as aplicações através das portas 3306 (Banco MySQL), 3000 (API) e 4200 (Web App Angular).
 
-```bash
-# unit tests
-$ npm run test
+O frontend **não está finalizado**.
+## 📦 Lista de rotas
 
-# e2e tests
-$ npm run test:e2e
+Na tabela abaixo você pode encontrar todas as rotas fornecidas pelo API. Acesse `http://localhost:3000/dev/api` + qualquer trecho da tabela abaixo.
 
-# test coverage
-$ npm run test:cov
-```
+Tipos de produto - Recebe o nome e o preço do produto
 
-## Support
+| Método | URL | Descrição |
+| :--- | :--- | :--- |
+| POST | `/product-types` | Criação de Tipo de produto |
+| GET | `/product-types` | Procura todos os tipos de produto. É possível usar filtros de `id`, `describe` e `price` | 
+| PUT | `/product-types/:id` | Edita um tipo de produto pelo `id`|
+| DELETE | `/product-types:id` | Deleta um tipo de produto pelo `id` |
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Produtos - Recebe a data de expiração, quantidade e id de um tipo de produto
 
-## Stay in touch
+| Método | URL | Descrição |
+| :--- | :--- | :--- |
+| POST | `/products` | Criação de produto |
+| GET | `/products` | Procura todos os produtos. É possível usar filtros de `id`, `expiration_date`, `quantity` e `product_type_id` | 
+| PUT | `/products/:id` | Edita um tipo de produto pelo `id`|
+| DELETE | `/products/:id` | Deleta um tipo de produto pelo `id` |
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 🛠️ Construído com
 
-## License
+Algumas das tecnologias utilizadas para criar esse projeto
 
-Nest is [MIT licensed](LICENSE).
+* [NestJS](https://nestjs.com/)
+* [Angular](https://angular.dev/)
+* [Sequelize](https://sequelize.org/)
+* [Docker](https://www.docker.com/)
+
+---
+
